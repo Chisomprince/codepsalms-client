@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Layout from "components/Layout";
 import PostCard from "components/PostCard";
-import { sanityClient } from "sanity";
+
 const posts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const Home: NextPage = () => {
   return (
@@ -39,24 +39,5 @@ const Home: NextPage = () => {
     </div>
   );
 };
-
-export async function getServerSideProps() {
-  const query = `*[_type == "post"]{
-    _id,
-    "title": title,
-    "slug": slug,
-    "date": date,
-    "category": category,
-    "mainImage": mainImage,
-  ]`;
-
-  const posts = await sanityClient.fetch(query);
-  console.log(posts);
-  return {
-    props: {
-      posts,
-    },
-  };
-}
 
 export default Home;
