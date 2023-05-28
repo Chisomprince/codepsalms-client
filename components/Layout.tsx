@@ -1,6 +1,6 @@
 import React from "react";
-import Nav from "./Nav";
 import Footer from "./Footer";
+import Nav from "./Nav";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,10 +8,10 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div>
+    <div className="bg-gray-100 dark:bg-zinc-800">
       <Nav />
-      <div className="dark:bg-gray-800">
-        <div className="container mx-auto ">{children}</div>
+      <div className=" max-w-7xl mx-auto">
+        <div className=" mx-auto ">{children}</div>
       </div>
       <Footer />
     </div>

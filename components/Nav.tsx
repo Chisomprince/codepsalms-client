@@ -1,31 +1,50 @@
+import { useTheme } from "next-themes";
 import Link from "next/link";
-import React from "react";
 import { useRouter } from "next/router";
+import { BiMoon, BiSearchAlt, BiSun } from "react-icons/bi";
 const links = [
   {
-    name: "Home",
+    name: "Tech",
     href: "/",
   },
   {
-    name: "Stories",
+    name: "News",
     href: "/stories",
   },
   {
-    name: "About",
+    name: "Reviews",
+    href: "/stories",
+  },
+  {
+    name: "How to",
+    href: "/stories",
+  },
+  {
+    name: "AI",
+    href: "/stories",
+  },
+  {
+    name: "Apps",
+    href: "/stories",
+  },
+  {
+    name: "Tools",
     href: "/about",
   },
 ];
 export default function Nav() {
   const router = useRouter();
-  console.log(router.pathname);
+  const { systemTheme, theme, setTheme } = useTheme();
+  const currentTheme = theme === "system" ? systemTheme : theme;
+
   return (
-    <header className="py-4 dark:bg-gray-900 dark:text-gray-100">
-      <div className="container  px-4 flex justify-between h-16 mx-auto">
+    <header className="py-4 bg-white shadow dark:bg-zinc-900 dark:text-zinc-100">
+      <div className="  px-4 lg:px-8 flex justify-between  mx-auto">
         <a
           rel="noopener noreferrer"
           href="#"
           aria-label="Back to homepage"
-          className="flex items-center p-2"
+          className="flex items-center "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -44,8 +63,10 @@ export default function Nav() {
                 <a
                   rel="noopener noreferrer"
                   className={`${
-                    router.pathname === link.href && "border-b-2"
-                  } flex items-center px-4 -mb-1  dark:border-transparent dark:text-blue-400 dark:border-blue-400`}
+                    router.pathname === link.href
+                      ? "p-0 dark:text-white text-blue-600"
+                      : "dark:text-gray-400"
+                  } flex items-center px-4 text-sm`}
                 >
                   {link.name}
                 </a>
@@ -53,10 +74,19 @@ export default function Nav() {
             </li>
           ))}
         </ul>
-        <div className="items-center flex-shrink-0 hidden lg:flex">
-          <button className="self-center px-8 py-3 font-semibold rounded-sm dark:bg-blue-400 dark:text-gray-900">
-            Follow
+        <div className="items-center flex-shrink-0 hidden lg:flex gap-4">
+          <button>
+            <BiSearchAlt className="w-5 h-5" />
           </button>
+          {currentTheme === "dark" ? (
+            <button onClick={() => setTheme("light")}>
+              <BiSun className="w-5 h-5" />
+            </button>
+          ) : (
+            <button onClick={() => setTheme("dark")}>
+              <BiMoon className="w-5 h-5" />
+            </button>
+          )}
         </div>
         <button className="p-4 lg:hidden">
           <svg
@@ -64,7 +94,7 @@ export default function Nav() {
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            className="w-6 h-6 dark:text-gray-100"
+            className="w-5 h-5 dark:text-gray-100"
           >
             <path
               strokeLinecap="round"

@@ -1,10 +1,12 @@
+import Layout from "components/Layout";
+import MainPost from "components/MainPost";
+import PostCard from "components/PostCard";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Layout from "components/Layout";
-import PostCard from "components/PostCard";
-import { sanityClient } from "sanity";
-const posts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const Home: NextPage = () => {
+import { BiChevronsRight } from "react-icons/bi";
+import { getAllPosts } from "../lib/api";
+
+const Home: NextPage = ({ posts = [] }: any) => {
   return (
     <div className="">
       <Head>
@@ -13,23 +15,25 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
         <main>
-          <section className="py-6 sm:py-12 dark:bg-gray-800 dark:text-gray-100">
+          <h1 className="pt-4 px-6">Get Latest News on Tech as they Come</h1>
+          <section className=" dark:text-gray-100">
             <div className="container p-6 mx-auto space-y-8">
-              <div className="space-y-2 text-center">
-                <h2 className="text-3xl font-bold">Partem reprimique an pro</h2>
-                <p className="font-serif text-sm dark:text-gray-400">
-                  Qualisque erroribus usu at, duo te agam soluta mucius.
-                </p>
+              <div className="relative bg-white dark:bg-zinc-900 border dark:border-zinc-700 p-6 grid grid-cols-1 gap-x-4 gap-y-4 lg:gap-y-8 md:grid-cols-2">
+                <MainPost />
+                <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 ">
+                  <PostCard showTag={false} post={posts} />
+                  <PostCard showTag={false} post={posts} />
+                </div>
               </div>
-              <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
-                {posts.slice(0, 8).map((post) => (
-                  <PostCard />
+              <div className="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
+                {posts.slice(0, 8).map((post: any) => (
+                  <PostCard post={post} />
                 ))}
               </div>
 
               <div className="flex justify-center">
-                <button className="border-none focus:outline-none ">
-                  Read More
+                <button className="border-none focus:outline-none bg-zinc-900 text-white text-xs px-12 py-2 flex items-center gap-2">
+                  <span> Read More</span> <BiChevronsRight />
                 </button>
               </div>
             </div>
@@ -41,16 +45,7 @@ const Home: NextPage = () => {
 };
 
 export async function getServerSideProps() {
-  const query = `*[_type == "post"]{
-    _id,
-    "title": title,
-    "slug": slug,
-    "date": date,
-    "category": category,
-    "mainImage": mainImage,
-  ]`;
-
-  const posts = await sanityClient.fetch(query);
+  const posts = await getAllPosts();
   console.log(posts);
   return {
     props: {

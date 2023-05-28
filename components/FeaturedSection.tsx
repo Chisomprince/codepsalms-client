@@ -1,10 +1,9 @@
-import React from "react";
 import Card from "./Card";
 export default function FeaturedSection() {
   return (
-    <aside>
+    <aside className=" bg-white dark:bg-zinc-900 dark:border-zinc-700">
       <Card>
-        <div className="flex flex-col divide-y divide-gray-700 p-4">
+        <div className="flex flex-col divide-y divide-zinc-200 dark:divide-zinc-700 px-2">
           <div className="flex px-1 py-4">
             <img
               alt=""

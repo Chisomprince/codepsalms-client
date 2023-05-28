@@ -1,5 +1,5 @@
-import React from "react";
 import clsx from "clsx";
+import React from "react";
 
 interface CardProps {
   children: React.ReactNode;
@@ -12,8 +12,8 @@ export default function Card({ children, p, border = true }: CardProps) {
     <div
       className={clsx(
         p && `p-${p}`,
-        border && "border dark:border-gray-700 rounded-sm",
-        `flex flex-col dark:bg-gray-900 dark:text-gray-100`
+        border && "border dark:border-zinc-700 rounded-sm",
+        `flex flex-col dark:bg-zinc-900 dark:text-zinc-100`
       )}
     >
       {children}
